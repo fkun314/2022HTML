@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>StopWatch</title>
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <script src="./js/bootstrap.min.js"></script>
+  <script src="./js/jquery-2.1.4.min.js"></script>
+  <script src="./js/jquery.spectrum.js"></script>
+  <style>
+    #timer {
+      font-size: 100px;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .spectrumHeader {
+      transition: 0.5s;
+    }
+
+    body {
+      background-color: black;
+    }
+
+    h1,
+    h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body id="spectrumPlugin">
+  <div class="container">
+    <header>
+      <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal">プログラミング体験</h1>
+        <h2>ストップウォッチ</h2>
+      </div>
+    </header>
+    <div class="row">
+      <tt>
+        <div id="timer" class="text-center my-5">00:00.00</div>
+      </tt>
+    </div>
+    <main>
+      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        <div class="col">
+          <button type="button" class="btn btn-primary w-100 btn-lg" id="">Start</button>
+        </div>
+        <div class="col">
+          <button type="button" class="btn btn-primary w-100 btn-lg">Stop</button>
+        </div>
+        <div class="col">
+          <button type="button" class="btn btn-primary w-100 btn-lg" id="reset"
+            onclick="window.location.reload();">Reset</button>
+        </div>
+      </div>
+    </main>
+    <br>
+  </div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      // 背景色の設定
+      var color = "";
+
+      // 以下は変更しないでください
+      var timer = document.getElementById("timer");
+      var start = document.getElementById("start");
+      var stop = document.getElementById("stop");
+      var reset = document.getElementById("reset");
+
+      var startTime;
+
+      var elapsedTime = 0;
+
+      var timerId;
+
+      var timeToadd = 0;
+
+      function updateTimetText() {
+        var m = Math.floor(elapsedTime / 60000);
+
+        var s = Math.floor((elapsedTime % 60000) / 1000);
+
+        var ms = elapsedTime % 1000;
+
+        m = ("0" + m).slice(-2);
+        s = ("0" + s).slice(-2);
+        ms = ("0" + ms).slice(1, 3);
+
+        timer.textContent = m + ":" + s + "." + ms;
+      }
+
+      //再帰的に使える用の関数
+      function countUp() {
+        timerId = setTimeout(function () {
+          elapsedTime = Date.now() - startTime + timeToadd;
+          updateTimetText();
+
+          countUp();
+
+          //1秒以下の時間を表示するために10ミリ秒後に始めるよう宣言
+        }, 10);
+      }
+
+      //startボタンにクリック時のイベントを追加(タイマースタートイベント)
+      start.addEventListener("click", function () {
+        startTime = Date.now();
+
+        countUp();
+        start.disabled = true
+        stop.disabled = false
+      });
+
+      //stopボタンにクリック時のイベントを追加(タイマーストップイベント)
+      stop.addEventListener("click", function () {
+        clearTimeout(timerId);
+
+        timeToadd += Date.now() - startTime;
+
+        console.log(timeToadd);
+
+        start.disabled = true
+        stop.disabled = true
+
+        //もし+-0.5秒以内だったら
+        if (timeToadd >= 9900 && timeToadd <= 10100) {
+          if (color == "gaiming") {
+            $(function () {
+              $('#spectrumPlugin').spectrum();
+            });
+          } else {
+            document.getElementById('spectrumPlugin').style.backgroundColor = color;
+            console.log(color);
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>
