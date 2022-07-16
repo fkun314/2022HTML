@@ -1,3 +1,22 @@
+:::note warn
+配布プリント修正
+
+配布した資料の一部を訂正します。
+１、スタートボタンについてコードの記載が抜けていましたので追加させていただきます。
+
+修正前：```<button type="button" class="btn btn-primary w-100 btn-lg">Start</button>```
+
+修正後：```<button type="button" class="btn btn-primary w-100 btn-lg" id="start">Start</button>```
+
+２、ストップボタンについてコードの記載が抜けていましたので追加させていただきます。
+
+修正前：```<button type="button" class="btn btn-primary w-100 btn-lg">Stop</button>```
+
+修正後：```<button type="button" class="btn btn-primary w-100 btn-lg" id="stop">Stop</button>```
+
+index_complete.htmlという完成したファイルを用意していますのであわせてご覧ください。
+:::
+
 # プログラム説明
 
 本プログラムは2022年プログラミング体験用に作成したものです。
