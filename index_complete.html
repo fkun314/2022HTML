@@ -128,8 +128,8 @@
         start.disabled = true
         stop.disabled = true
 
-        //もし+-0.5秒以内だったら
-        if (timeToadd >= 9900 && timeToadd <= 10100) {
+        //もし５秒以上だったら
+        if (timeToadd >= 5000) {
           if (color == "gaiming") {
             $(function () {
               $('#spectrumPlugin').spectrum();
